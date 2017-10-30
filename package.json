@@ -1,0 +1,35 @@
+{
+  "name": "newrelic-host-applications",
+  "version": "0.0.0",
+  "description": "An object to handle New-relic's host applications Edit",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run jest",
+    "build": "cross-env FORMAT=iife rollup -c && cross-env FORMAT=cjs rollup -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joseaplwork/NewRelicHostApplications.git"
+  },
+  "keywords": [
+    "javascript"
+  ],
+  "author": "joseaplwork",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joseaplwork/NewRelicHostApplications/issues"
+  },
+  "homepage": "https://github.com/joseaplwork/NewRelicHostApplications#readme",
+  "devDependencies": {
+    "babel-core": "6.26.0",
+    "babel-preset-env": "1.6.1",
+    "cross-env": "5.1.1",
+    "eslint-config-airbnb-base": "12.1.0",
+    "eslint-plugin-import": "2.8.0",
+    "jest": "21.2.1",
+    "rollup": "0.50.0",
+    "rollup-plugin-babel": "3.0.2",
+    "rollup-plugin-eslint": "4.0.0",
+    "rollup-plugin-uglify": "2.0.1"
+  }
+}
