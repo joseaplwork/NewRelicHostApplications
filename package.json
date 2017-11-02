@@ -1,6 +1,6 @@
 {
   "name": "newrelic-host-applications",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "An object to handle New-relic's host applications Edit",
   "main": "index.js",
   "scripts": {
