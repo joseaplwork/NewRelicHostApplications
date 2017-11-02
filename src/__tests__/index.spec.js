@@ -64,6 +64,24 @@ describe('NewRelicHostApps', () => {
     expect(randomApp.name).toBe(applicationToAdd.name);
   });
 
+  it('should add an app to a empty appHosts list', () => {
+    const applicationToAdd = {
+      name: 'test',
+      contributors: ['test 1', 'test 2'],
+      version: 2,
+      apdex: 60,
+      host: ['e7bf58af-f0be.dallas.biz', 'b0b655c5-928a.nadia.biz', '95b346a0-17f4.abbigail.name'],
+    };
+
+    const instance = new NewRelicHostApps();
+
+    instance.addAppToHosts(applicationToAdd);
+
+    const randomApp = instance.apps[0];
+
+    expect(randomApp.name).toBe(applicationToAdd.name);
+  });
+
   it('should optimistically add an app to the appHosts list into the first position', () => {
     const applicationToAdd = {
       name: 'test',
@@ -109,6 +127,14 @@ describe('NewRelicHostApps', () => {
     const expected = instance.apps.find(app => app.name === applicationToRemove.name);
 
     expect(expected).not.toBeDefined();
+  });
+
+  it('should avoid removing an app from an emtpy appHosts list', () => {
+    const instance = new NewRelicHostApps();
+
+    instance.removeAppFromHosts('non-existing-id');
+
+    expect(instance.apps.length).toEqual(0);
   });
 
   it('should optimistically remove an app from the hosts in the first position', () => {

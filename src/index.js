@@ -56,6 +56,12 @@ class NewRelicHostApps {
   _sortedPush(newApp) {
     const { apps } = this;
 
+    if (!apps.length) {
+      this.apps.push(this.constructor.getHashedApp(newApp));
+
+      return this.apps;
+    }
+
     if (apps[0].apdex <= newApp.apdex) {
       this.apps.unshift(this.constructor.getHashedApp(newApp));
 
@@ -86,6 +92,10 @@ class NewRelicHostApps {
 
   _removeFromApps(id) {
     const { apps } = this;
+
+    if (!apps.length) {
+      return this.apps;
+    }
 
     const lastIndex = apps.length - 1;
     if ((apps[0].$$id === id) || (apps[lastIndex].$$id === id)) {
