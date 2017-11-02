@@ -1,5 +1,5 @@
 import NewRelicHostApps from '../index';
-import applicationsData from './host-app-data.json';
+import applicationsData from '../host-app-data.json';
 
 describe('NewRelicHostApps', () => {
   const LIMIT_APPS_PER_HOST = 25;
