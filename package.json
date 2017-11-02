@@ -7,8 +7,8 @@
     "test": "jest --no-cache --color",
     "test:coverage": "jest --no-cache --color --coverage",
     "test:coverwatch": "jest --no-cache --color --coverage --watch",
-    "build": "cross-env FORMAT=umd rollup -c && cross-env FORMAT=cjs rollup -c",
-    "build:watch": "cross-env FORMAT=umd rollup -wc"
+    "build": "cross-env ENVIRONMENT=prod FORMAT=umd rollup -c && cross-env FORMAT=cjs rollup -c",
+    "build:dev": "cross-env ENVIRONMENT=dev FORMAT=umd rollup -wc"
   },
   "repository": {
     "type": "git",

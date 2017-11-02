@@ -1,0 +1,18 @@
+# NewRelicHostApps
+
+This is a simple library to handle host applications from NewRelic.
+
+Installing the dependencies:
+```shell
+npm install
+```
+
+Start the development mode, this will build `NewRelicHostApps.js` in the `dist/umd` directory:
+```shell
+npm run build:dev
+```
+
+If you want to do TDD run:
+```shell
+npm run test:coverwatch
+```
