@@ -24,7 +24,7 @@ If you want to do TDD run:
   const instance = new NewRelicHostAppsBundle(data);
 ```
 
-#### `constructor : (array) => void` [optional]
+#### `constructor : (array: <applications>) => void` [optional]
 
 The initial data to be handled by `NewRelicHostApps`
 
@@ -36,14 +36,14 @@ A maximum number to return the most satisfying applications
 
 The list of the sorted applications ordered by Apdex
 
-#### `getTopAppsByHost : () => array`
+#### `getTopAppsByHost : (string: <host>) => array`
 
 Retrieves a list of the 25 most satisfying applications.
 
-#### `addAppToHosts : (object<app>) => array`
+#### `addAppToHosts : (object: <app>) => array`
 
 Adds an update the list of applications with higher Apdex
 
-#### `removeAppFromHosts : (string<id>) => array`
+#### `removeAppFromHosts : (string: <id>) => array`
 
 Removes an update the list of applications with higher Apdex
