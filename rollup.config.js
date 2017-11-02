@@ -3,15 +3,13 @@ import eslint from 'rollup-plugin-eslint';
 import uglify from 'rollup-plugin-uglify';
 
 const format = process.env.FORMAT;
-const isIife = format === 'iife';
-const name = isIife && 'NewRelicHostApplicationsBundle';
-const path = isIife ? 'umd' : 'cjs';
+const name = format === 'umd' && 'NewRelicHostAppsBundle';
 
 export default {
   input: 'src/index.js',
   name,
   output: {
-    file: `dist/${path}/NewRelicHostApplications.min.js`,
+    file: `dist/${format}/NewRelicHostApps.min.js`,
     format,
   },
   plugins: [

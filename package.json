@@ -4,8 +4,11 @@
   "description": "An object to handle New-relic's host applications Edit",
   "main": "index.js",
   "scripts": {
-    "test": "npm run jest",
-    "build": "cross-env FORMAT=iife rollup -c && cross-env FORMAT=cjs rollup -c"
+    "test": "jest --no-cache --color",
+    "test:coverage": "jest --no-cache --color --coverage",
+    "test:coverwatch": "jest --no-cache --color --coverage --watch",
+    "build": "cross-env FORMAT=umd rollup -c && cross-env FORMAT=cjs rollup -c",
+    "build:watch": "cross-env FORMAT=umd rollup -wc"
   },
   "repository": {
     "type": "git",
@@ -20,6 +23,18 @@
     "url": "https://github.com/joseaplwork/NewRelicHostApplications/issues"
   },
   "homepage": "https://github.com/joseaplwork/NewRelicHostApplications#readme",
+  "jest": {
+    "verbose": true,
+    "coverageDirectory": "<rootDir>/coverage",
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 90,
+        "lines": 90,
+        "statements": 90
+      }
+    }
+  },
   "devDependencies": {
     "babel-core": "6.26.0",
     "babel-preset-env": "1.6.1",
