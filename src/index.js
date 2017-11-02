@@ -2,13 +2,13 @@ import { hashCode } from './utils';
 
 class NewRelicHostApps {
   constructor(apps) {
-    this.MOST_SATISFING = 25;
+    this.MAX_MOST_SATISFING = 25;
     const appsWithId = this.constructor.getHashedApps(apps);
     this.apps = this.constructor.sortAppsByApdex(appsWithId);
   }
 
   _getMostSatisfyingApps(apps) {
-    const limit = apps.length >= this.MOST_SATISFING ? this.MOST_SATISFING : apps.length;
+    const limit = apps.length >= this.MAX_MOST_SATISFING ? this.MAX_MOST_SATISFING : apps.length;
 
     return apps.slice(0, limit);
   }
