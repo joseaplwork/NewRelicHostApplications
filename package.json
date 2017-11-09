@@ -1,6 +1,6 @@
 {
   "name": "newrelic-host-applications",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "An object to handle New-relic's host applications Edit",
   "main": "build/umd/NewRelicHostApps.min.js",
   "module": "build/es/NewRelicHostApps.js",
