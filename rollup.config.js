@@ -5,7 +5,7 @@ import uglify from 'rollup-plugin-uglify';
 const isDev = process.env.ENVIRONMENT === 'dev';
 const format = process.env.FORMAT;
 const name = format === 'umd' && 'NewRelicHostAppsBundle';
-const fileName = isDev ? 'NewRelicHostApps.js' : 'NewRelicHostApps.min.js';
+const fileName = (isDev || !name) ? 'NewRelicHostApps.js' : 'NewRelicHostApps.min.js';
 
 export default {
   input: 'src/index.js',
@@ -17,6 +17,6 @@ export default {
   plugins: [
     eslint(),
     babel(),
-    !isDev && uglify(),
+    !isDev && name && uglify(),
   ],
 };

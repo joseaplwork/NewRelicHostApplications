@@ -2,12 +2,13 @@
   "name": "newrelic-host-applications",
   "version": "1.3.0",
   "description": "An object to handle New-relic's host applications Edit",
-  "main": "index.js",
+  "main": "build/umd/NewRelicHostApps.min.js",
+  "module": "build/es/NewRelicHostApps.js",
   "scripts": {
     "test": "jest --no-cache --color",
     "test:coverage": "jest --no-cache --color --coverage",
     "test:coverwatch": "jest --no-cache --color --coverage --watch",
-    "build": "cross-env ENVIRONMENT=prod FORMAT=umd rollup -c && cross-env FORMAT=cjs rollup -c",
+    "build": "cross-env ENVIRONMENT=prod FORMAT=umd rollup -c && cross-env FORMAT=cjs rollup -c && cross-env FORMAT=es rollup -c",
     "build:dev": "cross-env ENVIRONMENT=dev FORMAT=umd rollup -wc"
   },
   "repository": {
