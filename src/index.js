@@ -5,24 +5,21 @@ class NewRelicHostApps {
     this.MAX_MOST_SATISFING = 25;
     const appsWithId = this.constructor.getHashedApps(apps);
     this.apps = this.constructor.sortAppsByApdex(appsWithId);
+    this.hostsList = this.constructor.sortHostsByApp(this.apps);
   }
 
-  _getMostSatisfyingApps(apps) {
-    const limit = apps.length >= this.MAX_MOST_SATISFING ? this.MAX_MOST_SATISFING : apps.length;
+  _getMaxTopItems(apps, limit) {
+    const maxLimit = limit || Math.min(apps.length, this.MAX_MOST_SATISFING);
 
-    return apps.slice(0, limit);
+    return apps.slice(0, maxLimit);
   }
 
   static getHashedApps(apps) {
     if (!apps) return null;
 
-    const appsNew = apps;
-
-    for (let i = 0; i < apps.length; i += 1) {
-      appsNew[i].$$id = hashCode(JSON.stringify(appsNew[i]));
-    }
-
-    return appsNew;
+    return apps.map(item => Object.assign({}, item, {
+      $$id: hashCode(JSON.stringify(item)),
+    }));
   }
 
   static getHashedApp(app) {
@@ -36,21 +33,28 @@ class NewRelicHostApps {
       return [];
     }
 
-    return apps.sort((item, prevItem) => {
-      if (item.apdex === prevItem.apdex) return 0;
+    return apps.sort((item, prevItem) => prevItem.apdex - item.apdex);
+  }
 
-      return item.apdex < prevItem.apdex ? 1 : -1;
-    });
+  static sortHostsByApp(sortedApps) {
+    if (!sortedApps || !sortedApps.length) return [];
+
+    return sortedApps.reduce((hostsList, current) => {
+      const hosts = current.host.slice();
+      const filteredHosts = hosts.filter(host => !hostsList.includes(host));
+
+      return hostsList.concat(filteredHosts);
+    }, []);
   }
 
   _filterByOccurrence(occurrence, value) {
     return this.apps.filter(app => app[occurrence].includes(value));
   }
 
-  getTopAppsByHost(host) {
+  getTopAppsByHost(host, limit) {
     const appsByHost = this._filterByOccurrence('host', host);
 
-    return this._getMostSatisfyingApps(appsByHost);
+    return this._getMaxTopItems(appsByHost, limit);
   }
 
   _sortedPush(newApp) {
@@ -59,12 +63,14 @@ class NewRelicHostApps {
     if (!apps.length) {
       this.apps.push(this.constructor.getHashedApp(newApp));
 
+      this.sortHostsByApp(this.apps);
       return this.apps;
     }
 
     if (apps[0].apdex <= newApp.apdex) {
       this.apps.unshift(this.constructor.getHashedApp(newApp));
 
+      this.sortHostsByApp(this.apps);
       return this.apps;
     }
 
@@ -81,13 +87,15 @@ class NewRelicHostApps {
       }
     }
 
+    this.sortHostsByApp(this.apps);
+
     return this.apps;
   }
 
   addAppToHosts(newApp) {
     const updatedApplications = this._sortedPush(newApp);
 
-    return this._getMostSatisfyingApps(updatedApplications);
+    return this._getMaxTopItems(updatedApplications);
   }
 
   _removeFromApps(id) {
@@ -102,6 +110,7 @@ class NewRelicHostApps {
       const index = apps[0].$$id === id ? 0 : lastIndex;
       this.apps.splice(index, 1);
 
+      this.sortHostsByApp(this.apps);
       return this.apps;
     }
 
@@ -112,13 +121,14 @@ class NewRelicHostApps {
       }
     }
 
+    this.sortHostsByApp(this.apps);
     return this.apps;
   }
 
   removeAppFromHosts(id) {
     const updatedApplications = this._removeFromApps(id);
 
-    return this._getMostSatisfyingApps(updatedApplications);
+    return this._getMaxTopItems(updatedApplications);
   }
 }
 

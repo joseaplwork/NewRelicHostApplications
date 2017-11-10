@@ -31,6 +31,39 @@ describe('NewRelicHostApps', () => {
     expect(instance.removeAppFromHosts).toBeDefined();
   });
 
+  it('should call getHostsList and return the list of hosts from the sorted applications', () => {
+    const apps = [{
+      name: 'test1',
+      contributors: ['contributor 1', 'contributor 2'],
+      version: 7,
+      apdex: 20,
+      host: ['H1', 'H2'],
+    }, {
+      name: 'test2',
+      contributors: ['contributor 1', 'contributor 2'],
+      version: 7,
+      apdex: 10,
+      host: ['H3', 'H4'],
+    }, {
+      name: 'test1',
+      contributors: ['contributor 1', 'contributor 2'],
+      version: 7,
+      apdex: 30,
+      host: ['H5', 'H6'],
+    }, {
+      name: 'test1',
+      contributors: ['contributor 1', 'contributor 2'],
+      version: 7,
+      apdex: 50,
+      host: ['H1', 'H2'],
+    }];
+    const instance = new NewRelicHostApps(apps);
+    const hostList = instance.getHostsList();
+    const expectedHostList = ['H1', 'H2', 'H5', 'H6', 'H3', 'H4'];
+
+    expect(hostList).toEqual(expectedHostList);
+  });
+
   it('should call getTopAppsByHost and return the 25 most satisfying applications', () => {
     const instance = new NewRelicHostApps(applications);
     const appsByHost = instance.getTopAppsByHost('7e6272f7-098e.dakota.biz');
