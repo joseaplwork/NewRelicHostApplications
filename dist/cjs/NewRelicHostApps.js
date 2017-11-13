@@ -42,13 +42,6 @@ var NewRelicHostApps = function () {
       });
     }
   }, {
-    key: 'getTopAppsByHost',
-    value: function getTopAppsByHost(host, limit) {
-      var appsByHost = this._filterByOccurrence('host', host);
-
-      return this._getMaxTopItems(appsByHost, limit);
-    }
-  }, {
     key: '_sortedPush',
     value: function _sortedPush(newApp) {
       var apps = this.apps;
@@ -86,13 +79,6 @@ var NewRelicHostApps = function () {
       return this.apps;
     }
   }, {
-    key: 'addAppToHosts',
-    value: function addAppToHosts(newApp) {
-      var updatedApplications = this._sortedPush(newApp);
-
-      return this._getMaxTopItems(updatedApplications);
-    }
-  }, {
     key: '_removeFromApps',
     value: function _removeFromApps(id) {
       var apps = this.apps;
@@ -120,6 +106,20 @@ var NewRelicHostApps = function () {
 
       this.sortHostsByApps(this.apps);
       return this.apps;
+    }
+  }, {
+    key: 'getTopAppsByHost',
+    value: function getTopAppsByHost(host, limit) {
+      var appsByHost = this._filterByOccurrence('host', host);
+
+      return this._getMaxTopItems(appsByHost, limit);
+    }
+  }, {
+    key: 'addAppToHosts',
+    value: function addAppToHosts(newApp) {
+      var updatedApplications = this._sortedPush(newApp);
+
+      return this._getMaxTopItems(updatedApplications);
     }
   }, {
     key: 'removeAppFromHosts',
