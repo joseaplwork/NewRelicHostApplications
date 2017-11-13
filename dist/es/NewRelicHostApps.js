@@ -22,7 +22,7 @@ var NewRelicHostApps = function () {
     this.MAX_MOST_SATISFING = 25;
     var appsWithId = this.constructor.getHashedApps(apps);
     this.apps = this.constructor.sortAppsByApdex(appsWithId);
-    this.hostsList = this.constructor.sortHostsByApp(this.apps);
+    this.hostsList = this.constructor.sortHostsByApps(this.apps);
   }
 
   _createClass(NewRelicHostApps, [{
@@ -55,14 +55,14 @@ var NewRelicHostApps = function () {
       if (!apps.length) {
         this.apps.push(this.constructor.getHashedApp(newApp));
 
-        this.sortHostsByApp(this.apps);
+        this.sortHostsByApps(this.apps);
         return this.apps;
       }
 
       if (apps[0].apdex <= newApp.apdex) {
         this.apps.unshift(this.constructor.getHashedApp(newApp));
 
-        this.sortHostsByApp(this.apps);
+        this.sortHostsByApps(this.apps);
         return this.apps;
       }
 
@@ -79,7 +79,7 @@ var NewRelicHostApps = function () {
         }
       }
 
-      this.sortHostsByApp(this.apps);
+      this.sortHostsByApps(this.apps);
 
       return this.apps;
     }
@@ -105,7 +105,7 @@ var NewRelicHostApps = function () {
         var index = apps[0].$$id === id ? 0 : lastIndex;
         this.apps.splice(index, 1);
 
-        this.sortHostsByApp(this.apps);
+        this.sortHostsByApps(this.apps);
         return this.apps;
       }
 
@@ -116,7 +116,7 @@ var NewRelicHostApps = function () {
         }
       }
 
-      this.sortHostsByApp(this.apps);
+      this.sortHostsByApps(this.apps);
       return this.apps;
     }
   }, {
@@ -156,8 +156,8 @@ var NewRelicHostApps = function () {
       });
     }
   }, {
-    key: 'sortHostsByApp',
-    value: function sortHostsByApp(sortedApps) {
+    key: 'sortHostsByApps',
+    value: function sortHostsByApps(sortedApps) {
       if (!sortedApps || !sortedApps.length) return [];
 
       return sortedApps.reduce(function (hostsList, current) {

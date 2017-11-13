@@ -5,7 +5,7 @@ class NewRelicHostApps {
     this.MAX_MOST_SATISFING = 25;
     const appsWithId = this.constructor.getHashedApps(apps);
     this.apps = this.constructor.sortAppsByApdex(appsWithId);
-    this.hostsList = this.constructor.sortHostsByApp(this.apps);
+    this.hostsList = this.constructor.sortHostsByApps(this.apps);
   }
 
   _getMaxTopItems(apps, limit) {
@@ -36,7 +36,7 @@ class NewRelicHostApps {
     return apps.sort((item, prevItem) => prevItem.apdex - item.apdex);
   }
 
-  static sortHostsByApp(sortedApps) {
+  static sortHostsByApps(sortedApps) {
     if (!sortedApps || !sortedApps.length) return [];
 
     return sortedApps.reduce((hostsList, current) => {
@@ -63,14 +63,14 @@ class NewRelicHostApps {
     if (!apps.length) {
       this.apps.push(this.constructor.getHashedApp(newApp));
 
-      this.sortHostsByApp(this.apps);
+      this.sortHostsByApps(this.apps);
       return this.apps;
     }
 
     if (apps[0].apdex <= newApp.apdex) {
       this.apps.unshift(this.constructor.getHashedApp(newApp));
 
-      this.sortHostsByApp(this.apps);
+      this.sortHostsByApps(this.apps);
       return this.apps;
     }
 
@@ -87,7 +87,7 @@ class NewRelicHostApps {
       }
     }
 
-    this.sortHostsByApp(this.apps);
+    this.sortHostsByApps(this.apps);
 
     return this.apps;
   }
@@ -110,7 +110,7 @@ class NewRelicHostApps {
       const index = apps[0].$$id === id ? 0 : lastIndex;
       this.apps.splice(index, 1);
 
-      this.sortHostsByApp(this.apps);
+      this.sortHostsByApps(this.apps);
       return this.apps;
     }
 
@@ -121,7 +121,7 @@ class NewRelicHostApps {
       }
     }
 
-    this.sortHostsByApp(this.apps);
+    this.sortHostsByApps(this.apps);
     return this.apps;
   }
 
