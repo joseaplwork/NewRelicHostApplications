@@ -34,11 +34,11 @@ A maximum number to return the most satisfying applications
 
 #### `apps : array`
 
-The sorted hosts by Apdex
+The list of the sorted applications ordered by Apdex
 
 #### `hostsList : array`
 
-The list of the sorted applications ordered by Apdex
+The sorted hosts by Apdex
 
 #### `getTopAppsByHost : (string: <host>, number: <limit>) => array`
 
