@@ -28,15 +28,19 @@ If you want to do TDD run:
 
 The initial data to be handled by `NewRelicHostApps`
 
-#### `MAX_MOST_SATISFING : string`
+#### `MAX_MOST_SATISFING : number`
 
 A maximum number to return the most satisfying applications
 
 #### `apps : array`
 
+The sorted hosts by Apdex
+
+#### `hostsList : array`
+
 The list of the sorted applications ordered by Apdex
 
-#### `getTopAppsByHost : (string: <host>) => array`
+#### `getTopAppsByHost : (string: <host>, number: <limit>) => array`
 
 Retrieves a list of the 25 most satisfying applications.
 
